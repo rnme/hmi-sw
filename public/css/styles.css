@@ -1,0 +1,35 @@
+body {
+  background-color: rgb(24, 24, 24);
+  color: white;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+canvas {
+  width: 100%;
+}
+
+
+ul#options {
+  width: 200px;
+  padding: 0;
+  display: inline-block;
+}
+
+ul#options .vmc-item {
+  border-bottom: 4px solid white;
+  display: inline;
+  height: 70px;
+}
+
+ul#options .vmc-item .big {
+  font-size: 70px;
+  text-align: right;
+}
+ul#options .vmc-item .small p{
+  margin-bottom: 0;
+}
+
+#canvasContainer {
+  display: inline-block;
+  width: calc(100% - 250px);
+}

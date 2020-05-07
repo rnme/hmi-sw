@@ -5,21 +5,22 @@ var socket = io();
 // smoothie.streamTo(document.getElementById("firstCanvas"));
 
 // Data
-var line1 = new TimeSeries();
-var line2 = new TimeSeries();
-var line3 = new TimeSeries();
+var P_Pulmon = new TimeSeries();
+var VC_Mezcla = new TimeSeries();
+var FL_Mezcla = new TimeSeries();
 
 // Add a random value to each line every second
 // setInterval(function() {
-//   line1.append(new Date().getTime(), Math.random());
-//   line2.append(new Date().getTime(), Math.random());
-//   line3.append(new Date().getTime(), Math.random());
+//   P_Pulmon.append(new Date().getTime(), Math.random());
+//   VC_Mezcla.append(new Date().getTime(), Math.random());
+//   FL_Mezcla.append(new Date().getTime(), Math.random());
 // }, 100);
 socket.on('chart', (data) => {
   var time = new Date().getTime()
-  line1.append(time, Math.random());
-  line2.append(time, Math.random());
-  line3.append(time, Math.random());
+  
+  P_Pulmon.append(time, data.P_Pulmon);
+  VC_Mezcla.append(time, data.VC_Mezcla);
+  FL_Mezcla.append(time, data.FL_Mezcla);
 }) 
 
 var color1 = 'rgb(60, 200, 200)';
@@ -29,23 +30,29 @@ var color1 = 'rgb(60, 200, 200)';
 
 var smoothie = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color1 }
+  labels: { fillStyle: color1 },
+  maxValue: 100,
+  minValue: 0,
 });
 var smoothie2 = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color2 }
+  labels: { fillStyle: color2 },
+  maxValue: 1000,
+  minValue: 0,
 });
 var smoothie3 = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color3 }
+  labels: { fillStyle: color3 },
+  maxValue: 80,
+  minValue: 0,
 });
 
-smoothie.addTimeSeries(line1,
+smoothie.addTimeSeries(P_Pulmon,
   { strokeStyle: color1, lineWidth: 2 });
-smoothie2.addTimeSeries(line2,
-    { strokeStyle: color2, lineWidth: 2 });
-smoothie3.addTimeSeries(line3,
-    { strokeStyle: color3, lineWidth: 2 });
+smoothie2.addTimeSeries(VC_Mezcla,
+  { strokeStyle: color2, lineWidth: 2 });
+smoothie3.addTimeSeries(FL_Mezcla,
+  { strokeStyle: color3, lineWidth: 2 });
 
 smoothie.streamTo(document.getElementById("firstCanvas"));
 smoothie2.streamTo(document.getElementById("secondCanvas"));

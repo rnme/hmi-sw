@@ -157,6 +157,7 @@
   function TimeSeries(options) {
     this.options = Util.extend({}, TimeSeries.defaultOptions, options);
     this.disabled = false;
+    this.lastUpdatedPosition = 0;
     this.clear();
   }
 
@@ -209,6 +210,7 @@
    * whether it is replaced, or the values summed (defaults to false.)
    */
   TimeSeries.prototype.append = function(timestamp, value, sumRepeatedTimeStampValues) {
+    console.log(this.data.length)
 	// Reject NaN
 	if (isNaN(timestamp) || isNaN(value)){
 		return
@@ -928,7 +930,7 @@
       // Retain lastX, lastY for calculating the control points of bezier curves.
       var firstX = 0, firstY = 0, lastX = 0, lastY = 0;
       for (var i = 0; i < dataSet.length && dataSet.length !== 1; i++) {
-        var x = timeToXPixel(dataSet[i][0]),
+        var x = timeToXPixel(dataSet[i][0]), //CAMBIAR ESTE CALCULO DE x POR LA POSICIÓN DEL ARRAY
             y = valueToYPixel(dataSet[i][1]);
 
         if (i === 0) {

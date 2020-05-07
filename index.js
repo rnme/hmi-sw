@@ -7,6 +7,9 @@ const app = express()
 const server = require('http').Server(app)
 const io = socket(server)
 
+const utils = require('./utils');
+const mb = require('./components/modbus')
+
 const port = process.env.PORT || 3000
 const route = require('./app/routes')
 
@@ -23,8 +26,19 @@ app.use(route)
 io.on('connection', (socket) => {
   console.log('a user connected');
 
+  mb.init();
+
+  
+
   setInterval(function() {
-    socket.emit('chart', {line1: Math.random(),line2: Math.random(),line3: Math.random()});
+    mb.getHR(102, 15, (data) => { 
+      const numbers = data.data.map((toReturn => ((toReturn > 32767) ? toReturn - 65536 : toReturn)));
+      const P_Pulmon = numbers[0];  // 102 = 40103
+      const VC_Mezcla = numbers[6]; // 108 = 40109
+      const FL_Mezcla = numbers[7]; // 109 = 40110
+      socket.emit('chart', {P_Pulmon: P_Pulmon, VC_Mezcla: VC_Mezcla, FL_Mezcla: FL_Mezcla});
+    })
+    
   }, 100);
 });
 
@@ -32,4 +46,5 @@ io.on('connection', (socket) => {
 
 server.listen(port, () => {
   console.log('Listening on '+port)
+  console.log('Open http://localhost:' + port)
 })

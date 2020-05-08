@@ -21,6 +21,12 @@ socket.on('chart', (data) => {
   P_Pulmon.append(time, data.P_Pulmon);
   VC_Mezcla.append(time, data.VC_Mezcla);
   FL_Mezcla.append(time, data.FL_Mezcla);
+  
+  vue_manajer.parameters = {...vue_manajer.parameters, ...data};
+}) 
+
+socket.on('parameters', (data) => {
+  vue_manajer.parameters = {...vue_manajer.parameters, ...data};
 }) 
 
 var color1 = 'rgb(60, 200, 200)';
@@ -30,19 +36,22 @@ var color1 = 'rgb(60, 200, 200)';
 
 var smoothie = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color1 },
+  labels: { fillStyle: color1, fontSize: 18 },
+  title: {text:'P Pulmon (cmH2O)', fillStyle: color1, verticalAlign: 'top', fontSize: 18},
   maxValue: 100,
   minValue: 0,
 });
 var smoothie2 = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color2 },
+  labels: { fillStyle: color2, fontSize: 18 },
+  title: {text:'VC Mezcla (mL)', fillStyle: color2, verticalAlign: 'top', fontSize: 18},
   maxValue: 1000,
   minValue: 0,
 });
 var smoothie3 = new SmoothieChart({
   millisPerPixel : 5,
-  labels: { fillStyle: color3 },
+  labels: { fillStyle: color3, fontSize: 18 },
+  title: {text:'FL Mezcla (L/m)', fillStyle: color3, verticalAlign: 'top', fontSize: 18},
   maxValue: 80,
   minValue: 0,
 });
@@ -62,17 +71,3 @@ document.getElementById("secondCanvas").setAttribute('width', document.getElemen
 document.getElementById("thirdCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
 
 
-var start = null;
-var element = document.getElementById('firstCanvas');
-
-function step(timestamp) {
-  if (!start) start = timestamp;
-  var progress = timestamp - start;
-  console.log(progress)
-}
-
-window.requestAnimationFrame(step);
-
-
-
-var fps = 0;

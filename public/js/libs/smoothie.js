@@ -210,7 +210,6 @@
    * whether it is replaced, or the values summed (defaults to false.)
    */
   TimeSeries.prototype.append = function(timestamp, value, sumRepeatedTimeStampValues) {
-    console.log(this.data.length)
 	// Reject NaN
 	if (isNaN(timestamp) || isNaN(value)){
 		return

@@ -14,8 +14,8 @@ exports.init = () => {
 
 exports.getHR = (dir, offset, callback) => {
   if (!client._port.openFlag) {
-    reconnect();
-    return false;
+    //reconnect();
+    //return false;
   }
 
   client.readHoldingRegisters(dir, offset, (err, data) => {

@@ -6,11 +6,12 @@ body {
 
 canvas {
   width: 100%;
+  flex: 3;
 }
 
 
 ul#options {
-  width: 200px;
+  flex: 1;
   padding: 0;
   display: inline-block;
 }
@@ -18,11 +19,14 @@ ul#options {
 ul#options .vmc-item {
   border-bottom: 4px solid white;
   display: inline;
-  height: 70px;
 }
 
 ul#options .vmc-item .big {
   font-size: 70px;
+  text-align: right;
+}
+ul#options .vmc-item .med {
+  font-size: 40px;
   text-align: right;
 }
 ul#options .vmc-item .small p{

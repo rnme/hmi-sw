@@ -7,21 +7,21 @@ body {
 .presion {
   color: rgb(255, 202, 0);
 }
-.presion h4, .presion h5, .presion h6 {
+/* .presion h4, .presion h5, .presion h6 {
   color: rgb(162, 143, 67);
-}
+} */
 .flujo {
   color: rgb(69, 199, 43);
 }
-.flujo h4, .flujo h5, .flujo h6 {
+/* .flujo h4, .flujo h5, .flujo h6 {
   color: rgb(86, 140, 75);
-}
+} */
 .volumen {
   color: rgb(60, 200, 200);
 }
-.volumen h4, .volumen h5, .volumen h6 {
+/* .volumen h4, .volumen h5, .volumen h6 {
   color: rgb(42, 132, 132);
-}
+} */
 
 canvas {
   width: 100%;
@@ -159,8 +159,20 @@ ul#options {
   transition: height 0.10s ease-out;
 }
 .grafica .valvula-grafica .grafica-barra.aire {
-  background-color: lawngreen;
+  background-color: yellow;
 }
 .grafica .valvula-grafica .grafica-barra.o2 {
-  
+  background-color: lawngreen;
+}
+
+
+.blink_alarm {
+  color: orangered;
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    color: #9e1919;
+  }
 }

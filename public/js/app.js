@@ -59,6 +59,6 @@ document.getElementById("secondCanvas").setAttribute('width', document.getElemen
 document.getElementById("thirdCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
 
 
-setInterval( () => {
-  document.querySelector('.grafica-barra.aire').style.height = Math.random()*100 + "%";
-}, 100)
+// setInterval( () => {
+
+// }, 100)

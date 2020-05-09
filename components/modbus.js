@@ -2,18 +2,19 @@
 var ModbusRTU = require("modbus-serial");
 
 var client = new ModbusRTU();
+const PLC_IP_ADDRESS = "192.168.0.7"; 
 
 exports.init = () => {
   console.log(client , !client._port)
   if ( !client._port || !client._port.openFlag) {
 
-    console.log(client.connectTCP("192.168.1.203", { port: 502 }));
+    console.log(client.connectTCP(PLC_IP_ADDRESS, { port: 502 }));
     console.log(client.setID(0));
   }
 
 }
 const reconnect = () => {
-  console.log(client.connectTCP("192.168.1.203", { port: 502 }));
+  console.log(client.connectTCP(PLC_IP_ADDRESS, { port: 502 }));
   console.log(client.setID(0));
 }
 

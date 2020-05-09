@@ -18,27 +18,27 @@
         <h3>Paciente: {{parameters.NRO_PACIENTE || '-'}}</h3>
       </div>
       <div>
-        <h3 class="text-danger" v-if="parameters.ALARMA_BOCINA == '1'">ALARMA!!!</h3>
+        <h3 class="blink_alarm" v-if="parameters.ALARMA_BOCINA == '1'">ALARMA!</h3>
       </div>
     </div>
     <div class="d-flex flex-row w-100 justify-content-between">
       <div id="canvasContainer">
-        <canvas id="firstCanvas" style="width:100%; height:180px" height="180"></canvas>
+        <canvas id="firstCanvas" style="width:100%; height:170px" height="170"></canvas>
         <br>
-        <canvas id="secondCanvas" style="width:100%; height:180px" height="180">
-        <P>Hola</P></canvas>
+        <canvas id="secondCanvas" style="width:100%; height:170px" height="170">
+        </canvas>
         <br>
-        <canvas id="thirdCanvas" style="width:100%; height:180px" height="180"></canvas>
+        <canvas id="thirdCanvas" style="width:100%; height:170px" height="170"></canvas>
       </div>
       <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
       <ul id="options" class="d-flex flex-column" >
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 presion">
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 presion">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
             <div>
               <h4 class="mt-4">Ppulm</h4>
               <h6>( cm H<span class="agua">2</span>O )</h6>
             </div>
-            <div class="big"><span>{{parameters.P_Pulmon || 0}}</span></div>
+            <div class="big"><span>{{parameters.P_pulmon_max || 0}}</span></div>
           </div>
           <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
             <h5>Pplate </h5>
@@ -63,7 +63,21 @@
           </div>
           <p class="flex-fill med mt-0">{{parameters.FiO2_inst || 0}}</p>
         </li>
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center volumen">
+        <li class="vmc-item d-flex flex-row align-items-center p-3 flujo ">
+          <div>
+            <h5 class="mt-0">Crs</54>
+            <h6>( ml/cm H<span class="agua">2</span>O )</h6>
+          </div>
+          <p class="flex-fill med mt-0">{{parameters.Crs || 0}}</p>
+        </li>
+        <li class="vmc-item d-flex flex-row align-items-center p-3 volumen ">
+          <div>
+            <h5 class="mt-0">VCmax</54>
+            <h6>( ml )</h6>
+          </div>
+          <p class="flex-fill med mt-0">{{parameters.VC_max || 0}}</p>
+        </li>
+        <!-- <li class="vmc-item vmc-item-big d-flex flex-row align-items-center volumen">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 p-3 small">
             <div>
               <h4>VCmax</h4>
@@ -71,31 +85,32 @@
             </div>
             <div class="big"><span>{{parameters.VC_max || 0}}</span></div>
           </div>
-        </li>
+        </li> -->
       </ul>
       
     </div>
     <div class="d-flex flex-row configutation-container">
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 valvulas">
-        <div class="flex-fill d-flex flex-row align-items-stretch h-100  grafica-left">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 valvulas">
+        
+        <div class="flex-fill d-flex flex-row align-items-stretch h-100 grafica-left">
           <div class="lex-fill d-flex flex-row grafica h-100">
             <div class="valvula-grafica">
-              <div class="grafica-barra aire"></div>
+              <div class="grafica-barra o2"  v-bind:style="{height: parameters.FL_O2 * 2 + '%'}"></div>
             </div>
             <div class="grafica-tick"></div>
           </div>
-          <div class="d-flex flex-column justify-content-between pl-2">
-            <span>500</span>
+          <div class="d-flex flex-column justify-content-between pr-2 text-right">
+            <span>50</span>
             <span>0</span>
           </div>
         </div>
         <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <h5>Q Aire </h5>
+          <h5>Q O<span class="oxigeno">2</span> </h5>
           <h6>( L/min )</h6>
-          <p class="med">{{parameters.FL_Aire || 0}}</p>
-          <h5 class="mt-2">VC Aire </h5>
+          <p class="med">{{parameters.FL_O2 || 0}}</p>
+          <h5 class="mt-2">VC O<span class="oxigeno">2</span> </h5>
           <h6>( ml )</h6>
-          <p class="med">{{parameters.VC_Aire || 0}}</p>
+          <p class="med">{{parameters.VC_O2 || 0}}</p>
         </div>
       </div>
       <div class="d-flex flex-row configuration">
@@ -164,27 +179,29 @@
           </div> 
         </div>
       </div>
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 valvulas">
+      
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 valvulas">
         <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 ml-3 small">
-          <h5>Q O<span class="oxigeno">2</span> </h5>
+          <h5>Q Aire </h5>
           <h6>( L/min )</h6>
-          <p class="med">{{parameters.FL_O2 || 0}}</p>
-          <h5 class="mt-2">VC O<span class="oxigeno">2</span> </h5>
+          <p class="med">{{parameters.FL_Aire || 0}}</p>
+          <h5 class="mt-2">VC Aire </h5>
           <h6>( ml )</h6>
-          <p class="med">{{parameters.VC_O2 || 0}}</p>
+          <p class="med">{{parameters.VC_Aire || 0}}</p>
         </div>
-        <div class="flex-fill d-flex flex-row-reverse align-items-stretch h-100 grafica-right">
+        <div class="flex-fill d-flex flex-row-reverse align-items-stretch h-100  grafica-right">
           <div class="lex-fill d-flex flex-row-reverse grafica h-100">
             <div class="valvula-grafica">
-              <div class="grafica-barra aire"></div>
+              <div class="grafica-barra aire"  v-bind:style="{height: parameters.FL_Aire * 2 + '%'}"></div>
             </div>
             <div class="grafica-tick"></div>
           </div>
-          <div class="d-flex flex-column justify-content-between pr-2 text-right">
-            <span>500</span>
+          <div class="d-flex flex-column justify-content-between pl-2">
+            <span>50</span>
             <span>0</span>
           </div>
         </div>
+        
       </div>
     </div>
   </div>

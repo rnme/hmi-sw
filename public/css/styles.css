@@ -1,39 +1,166 @@
 body {
   background-color: rgb(24, 24, 24);
   color: white;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif, Arial, Helvetica;
+}
+
+.presion {
+  color: rgb(255, 202, 0);
+}
+.presion h4, .presion h5, .presion h6 {
+  color: rgb(162, 143, 67);
+}
+.flujo {
+  color: rgb(69, 199, 43);
+}
+.flujo h4, .flujo h5, .flujo h6 {
+  color: rgb(86, 140, 75);
+}
+.volumen {
+  color: rgb(60, 200, 200);
+}
+.volumen h4, .volumen h5, .volumen h6 {
+  color: rgb(42, 132, 132);
 }
 
 canvas {
   width: 100%;
   flex: 3;
+  padding: 2px; 
+  background-color: black;
 }
 
+h4 {
+  margin: 0;
+}
+h5 {
+  margin: 0;
+  font-size: 18px;
+}
+h6 {
+  margin: -4px;
+  align-self: center;
+  font-weight: 100;
+  font-family: sans-serif;
+  font-size: 13px;
+  text-align: right;
+  height: 15px;
+}
+p {
+  margin: 0;
+}
+
+span.agua {
+  font-size: 80%;
+  vertical-align: sub;
+  margin: 1px;
+}
+span.oxigeno {
+  font-size: 80%;
+  vertical-align: super;
+}
 
 ul#options {
   flex: 1;
   padding: 0;
   display: inline-block;
+  margin-left: 10px;
 }
 
-ul#options .vmc-item {
-  border-bottom: 4px solid white;
+.vmc-item {
+  border-bottom: 4px solid #888;
   display: inline;
+  padding-left: 10px
 }
 
-ul#options .vmc-item .big {
+.vmc-item .big {
   font-size: 70px;
   text-align: right;
+  line-height: 75px;
+  margin-top: 20px;
+  align-self: center;
 }
-ul#options .vmc-item .med {
+.vmc-item .med {
   font-size: 40px;
   text-align: right;
+  line-height: 45px;
+  margin-top: 10px;
+  align-self: center;
 }
-ul#options .vmc-item .small p{
+.vmc-item .small p{
   margin-bottom: 0;
 }
 
 #canvasContainer {
   display: inline-block;
   width: calc(100% - 250px);
+}
+
+.valvulas {
+  flex: 1;
+}
+
+
+.configuration {
+  background-color: #aaa;
+  color: #333;
+  flex: 3;
+}
+.configuration h3 {
+  margin: 0;
+  font-size: 18px;
+  padding: 3px;
+}
+.configuration h4 {
+  font-size: 24px;
+  line-height: 24px;
+  height: 24px;
+}
+.configuration h6 {
+  margin: -6px;
+  align-self: flex-end;
+}
+.configuration .vmc-item {
+  border: none;
+  padding-left: 0;
+}
+.configuration .br {
+  border-right: 1px solid #888;
+}
+.configuration .bl {
+  border-left: 1px solid #888;
+}
+.configuration .small{
+  border: 1px solid #888;
+  width: 150px;
+  height: 100%;
+}
+
+.grafica {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.grafica .valvula-grafica {
+  border: 1px solid white;
+  height: 100%;
+  width: 30px;
+  position: relative;
+}
+.grafica .grafica-tick {
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  height: 100%;
+  width: 30px;
+}
+.grafica .valvula-grafica .grafica-barra {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  transition: height 0.10s ease-out;
+}
+.grafica .valvula-grafica .grafica-barra.aire {
+  background-color: lawngreen;
+}
+.grafica .valvula-grafica .grafica-barra.o2 {
+  
 }

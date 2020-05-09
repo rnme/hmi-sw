@@ -56,14 +56,14 @@ io.on('connection', (socket) => {
         VALV_SEG,
         ALARMA_BOCINA
       });
-    })
-    
+    }) 
   }, 100);
-
 
   setInterval(function() {
     mb.getHR(50, 67, (data) => { 
-      const [INICIO, PARADA_EMERGENCIA, CONFIRM, OFF_ALAR, ACK_ALAR, DELAY_ALAR, Cmd_V_Insp, Cmd_V_Esp, Cmd_V_Seg] = utils.getBinaryFromBuffer(data.buffer, 0);
+      const [INICIO, PARADA_EMERGENCIA, CONFIRM, OFF_ALAR, ACK_ALAR, DELAY_ALAR] = utils.getBinaryFromBuffer(data.buffer, 0);
+      const [Hist_Falla_1_1, Hist_Falla_1_2, Hist_Falla_2_1, Hist_Falla_2_2, Hist_Falla_3_2, Hist_Falla_3_1, Hist_Falla_4, Hist_Falla_5_1, Hist_Falla_5_2, Hist_Falla_6, Hist_Falla_7, Hist_Falla_8, Hist_ALAR_13, Hist_ALAR_14, Hist_ALAR_15, Hist_ALAR_16] = utils.getBinaryFromBuffer(data.buffer, 49);
+      const [Falla_1_1, Falla_1_2, Falla_2_1, Falla_2_2, Falla_3_2, Falla_3_1, Falla_4, Falla_5_1, Falla_5_2, Falla_6, Falla_7, Falla_8, ALAR_13, ALAR_14, ALAR_15, ALAR_16] = utils.getBinaryFromBuffer(data.buffer, 50);
       const numbers = data.data.map((toReturn => ((toReturn > 32767) ? toReturn - 65536 : toReturn)));
       const T_INSP = numbers[6];
       const T_ESP = numbers[7];
@@ -72,6 +72,7 @@ io.on('connection', (socket) => {
       const Q_AM_sp = numbers[10];
       const VC_O2_sp = numbers[12];
       const VC_Aire_sp = numbers[13];
+      const NRO_PACIENTE = numbers[14];
       const DIF_VOLUMEN_CORRIENTE_MAX = numbers[40];
       const PRESIÓN_PEEP_MIN = numbers[41];
       const DIF_VOLUMEN_CORRIENTE_MIN = numbers[42];
@@ -82,16 +83,22 @@ io.on('connection', (socket) => {
       const P_pulmon_min = numbers[64];
       const VC_max = numbers[65];
       const Q_MZ_max = numbers[66];
-      
+      const FiO2_inst = numbers[67];
+      const Crs = numbers[68];
+
       socket.emit('parameters', {
-        T_INSP, T_ESP, Q_MZ_sp, Q_02_sp, Q_AM_sp, VC_O2_sp, VC_Aire_sp, DIF_VOLUMEN_CORRIENTE_MAX, 
+        T_INSP, T_ESP, Q_MZ_sp, Q_02_sp, Q_AM_sp, VC_O2_sp, VC_Aire_sp, NRO_PACIENTE, DIF_VOLUMEN_CORRIENTE_MAX, 
         PRESIÓN_PEEP_MIN, DIF_VOLUMEN_CORRIENTE_MIN, FiO2_calculado, P_pulmon_max, P_pulmon_pl, 
-        P_AutoPEEP, P_pulmon_min, VC_max, Q_MZ_max 
+        P_AutoPEEP, P_pulmon_min, VC_max, Q_MZ_max, FiO2_inst, Crs, INICIO, PARADA_EMERGENCIA, CONFIRM, OFF_ALAR, ACK_ALAR, DELAY_ALAR
       });
     })
+
+
     
   }, 1000);
 });
+
+
 
 
 

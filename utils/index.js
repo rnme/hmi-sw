@@ -10,8 +10,9 @@ const getHexFromIndex = (string, dir) => {
   return string.substring(start, start + 4);
 }
 const getBinary = (hex) => {
-  let toReturn = hex2bin(reverse(hex).substring(0,2));
-  toReturn += hex2bin(reverse(hex).substring(2,4));
+  // let toReturn = hex2bin(reverse(hex).substring(0,2));
+  let toReturn = reverse(hex2bin(hex.substring(0,2)));
+  toReturn += reverse(hex2bin(hex.substring(2,4)));
   return toReturn;
 }
 

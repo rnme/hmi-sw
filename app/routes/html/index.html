@@ -8,75 +8,192 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <div class="container-fluid d-flex"  id="parameters">
-    <div id="canvasContainer">
-      <canvas id="firstCanvas" style="width:100%; height:200px" height="200"></canvas>
-      <br>
-      <canvas id="secondCanvas" style="width:100%; height:200px" height="200"></canvas>
-      <br>
-      <canvas id="thirdCanvas" style="width:100%; height:200px" height="200"></canvas>
+  <div class="container-fluid"  id="parameters">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h3 class="text-success" v-if="parameters.INICIO == '1'">Encendido</h3>
+        <h3 class="text-danger" v-else>Pausado</h3>
+      </div>
+      <div>
+        <h3>Paciente: {{parameters.NRO_PACIENTE || '-'}}</h3>
+      </div>
+      <div>
+        <h3 class="text-danger" v-if="parameters.ALARMA_BOCINA == '1'">ALARMA!!!</h3>
+      </div>
     </div>
-    <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'>
-      <li class="vmc-item vmc-item-big d-flex flex-row align-items-center">
-        <div class="flex-fill pr-2 big"><span>20</span></div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Lorem </p>
-          <p>Ipsum</p>
-        </div>
-      </li>
-      <li class="vmc-item d-flex flex-row align-items-center">
-        <div class="flex-fill pr-2 big"><span>360</span></div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Lorem </p>
-          <p>Ipsum</p>
-        </div>
-      </li>
-      <li class="vmc-item d-flex flex-row align-items-center">
-        <div class="flex-fill pr-2 big"><span>1.60</span></div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Lorem </p>
-          <p>Ipsum</p>
-        </div>
-      </li>
-      <li class="vmc-item d-flex flex-row align-items-center">
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>TInsp </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.T_INSP}}</span></div>
-        </div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>TEsp </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.T_ESP}}</span></div>
-        </div>
-      </li>
-      <li class="vmc-item d-flex flex-row align-items-center">
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Fl O2 </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.FL_O2}}</span></div>
-        </div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Fl Aire </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.FL_Aire}}</span></div>
-        </div>
-      </li>
-      <li class="vmc-item d-flex flex-row align-items-center">
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Vc O2 </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.VC_O2_sp}}</span></div>
-        </div>
-        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
-          <p>Vc Aire </p>
-          <div class="flex-fill pr-2 med"><span>{{parameters.VC_Aire_sp}}</span></div>
-        </div>
-      </li>
+    <div class="d-flex flex-row w-100 justify-content-between">
+      <div id="canvasContainer">
+        <canvas id="firstCanvas" style="width:100%; height:180px" height="180"></canvas>
+        <br>
+        <canvas id="secondCanvas" style="width:100%; height:180px" height="180">
+        <P>Hola</P></canvas>
+        <br>
+        <canvas id="thirdCanvas" style="width:100%; height:180px" height="180"></canvas>
+      </div>
+      <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
+      <ul id="options" class="d-flex flex-column" >
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 presion">
+          <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
+            <div>
+              <h4 class="mt-4">Ppulm</h4>
+              <h6>( cm H<span class="agua">2</span>O )</h6>
+            </div>
+            <div class="big"><span>{{parameters.P_Pulmon || 0}}</span></div>
+          </div>
+          <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
+            <h5>Pplate </h5>
+            <h6>( cm H<span class="agua">2</span>O )</h6>
+            <p class="med">{{parameters.P_pulmon_pl || 0}}</p>
+            <h5>PEEP </h5>
+            <h6>( cm H<span class="agua">2</span>O )</h6>
+            <p class="med">{{parameters.P_AutoPEEP || 0}}</p>
+          </div>
+        </li>
+        <li class="vmc-item d-flex flex-row align-items-center p-3 presion ">
+          <div>
+            <h5 class="mt-0">P Linea Mezcla</54>
+            <h6>( cm H<span class="agua">2</span>O )</h6>
+          </div>
+          <p class="flex-fill med mt-0">{{parameters.P_Linea || 0}}</p>
+        </li>
+        <li class="vmc-item d-flex flex-row align-items-center p-3 flujo ">
+          <div>
+            <h5 class="mt-0">Fi O<span class="oxigeno">2</span> </54>
+            <h6>( % )</h6>
+          </div>
+          <p class="flex-fill med mt-0">{{parameters.FiO2_inst || 0}}</p>
+        </li>
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center volumen">
+          <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 p-3 small">
+            <div>
+              <h4>VCmax</h4>
+              <h6>( ml )</h6>
+            </div>
+            <div class="big"><span>{{parameters.VC_max || 0}}</span></div>
+          </div>
+        </li>
+      </ul>
       
-    </ul>
-    
+    </div>
+    <div class="d-flex flex-row configutation-container">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 valvulas">
+        <div class="flex-fill d-flex flex-row align-items-stretch h-100  grafica-left">
+          <div class="lex-fill d-flex flex-row grafica h-100">
+            <div class="valvula-grafica">
+              <div class="grafica-barra aire"></div>
+            </div>
+            <div class="grafica-tick"></div>
+          </div>
+          <div class="d-flex flex-column justify-content-between pl-2">
+            <span>500</span>
+            <span>0</span>
+          </div>
+        </div>
+        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
+          <h5>Q Aire </h5>
+          <h6>( L/min )</h6>
+          <p class="med">{{parameters.FL_Aire || 0}}</p>
+          <h5 class="mt-2">VC Aire </h5>
+          <h6>( ml )</h6>
+          <p class="med">{{parameters.VC_Aire || 0}}</p>
+        </div>
+      </div>
+      <div class="d-flex flex-row configuration">
+        <div class="d-fplex flex-column">
+          <h3 class="br">CONFIGURADO</h3>
+          <div class="vmc-item d-flex flex-row align-items-stretch setpoints">
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>FR </h4>
+              <h6>( rpm )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.FR || 0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>I:E </h4>
+              <h6>-</h6>
+              <div class="flex-fill pr-2 med"><span>1:{{parameters.IE ||0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>Pausa Insp </h4>
+              <h6>( ms )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.PAUSA_INSP || 0}}</span></div>
+            </div>
+          </div>
+          <div class="vmc-item d-flex flex-row align-items-center">
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>Vc</h4>
+              <h6>( ml )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.VC_sp || 0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>Fi O<span class="oxigeno">2</span> </h4>
+              <h6>( % )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.FiO2_sp || 0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>PEEP</h4>
+              <h6>( cm H<span class="agua">2</span>O )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.P_PEEP || 0}}</span></div>
+            </div>
+          </div> 
+        </div>
+        <div class="d-fplex flex-column">
+          <h3 class="bl">SETPOINT</h3>
+          <div class="vmc-item d-flex flex-row align-items-stretch setpoints">
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>T Insp </h4>
+              <h6>( ms )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.T_INSP || 0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>T Esp </h4>
+              <h6>( ms )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.T_ESP || 0}}</span></div>
+            </div>
+          </div>
+          <div class="vmc-item d-flex flex-row align-items-center">
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>Vc O<span class="oxigeno">2</span>  </h4>
+              <h6>( ml )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.VC_O2_sp || 0}}</span></div>
+            </div>
+            <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
+              <h4>Vc Aire </h4>
+              <h6>( ml )</h6>
+              <div class="flex-fill pr-2 med"><span>{{parameters.VC_Aire_sp || 0}}</span></div>
+            </div>
+          </div> 
+        </div>
+      </div>
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-3 valvulas">
+        <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 ml-3 small">
+          <h5>Q O<span class="oxigeno">2</span> </h5>
+          <h6>( L/min )</h6>
+          <p class="med">{{parameters.FL_O2 || 0}}</p>
+          <h5 class="mt-2">VC O<span class="oxigeno">2</span> </h5>
+          <h6>( ml )</h6>
+          <p class="med">{{parameters.VC_O2 || 0}}</p>
+        </div>
+        <div class="flex-fill d-flex flex-row-reverse align-items-stretch h-100 grafica-right">
+          <div class="lex-fill d-flex flex-row-reverse grafica h-100">
+            <div class="valvula-grafica">
+              <div class="grafica-barra aire"></div>
+            </div>
+            <div class="grafica-tick"></div>
+          </div>
+          <div class="d-flex flex-column justify-content-between pr-2 text-right">
+            <span>500</span>
+            <span>0</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <script type="text/javascript" src="/js/libs/vue.js"></script>
   <script type="text/javascript" src="/js/libs/smoothie.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="/js/vue_controller.js"></script>
   <script src="/js/app.js"></script>
+  <script src="/js/socket.js"></script>
  
 </body>
 </html>

@@ -40,7 +40,7 @@ h5 {
 h6 {
   margin: -4px;
   align-self: center;
-  font-weight: 100;
+  font-weight: 300;
   font-family: sans-serif;
   font-size: 13px;
   text-align: right;
@@ -93,13 +93,12 @@ ul#options {
 
 #canvasContainer {
   display: inline-block;
-  width: calc(100% - 250px);
+  width: calc(100% - 300px);
 }
 
 .valvulas {
   flex: 1;
 }
-
 
 .configuration {
   background-color: #aaa;
@@ -108,17 +107,18 @@ ul#options {
 }
 .configuration h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   padding: 3px;
 }
 .configuration h4 {
-  font-size: 24px;
+  font-size: 20px;
   line-height: 24px;
   height: 24px;
 }
 .configuration h6 {
   margin: -6px;
   align-self: flex-end;
+  font-weight: 400;
 }
 .configuration .vmc-item {
   border: none;

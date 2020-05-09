@@ -63,6 +63,16 @@ io.on('connection', (socket) => {
         Crs,
       });
     }) 
+    mb.getHR(59, 2, (data) => { 
+      
+      const numbers = data.data.map((toReturn => ((toReturn > 32767) ? toReturn - 65536 : toReturn)));
+      const Q_02_10 = numbers[0];      // 59
+      const Q_Aire_10 = numbers[1];       // 60 
+      socket.emit('q_values', {
+        Q_02_10,
+        Q_Aire_10,
+      });
+    }) 
   }, 100);
 
   setInterval(function() {

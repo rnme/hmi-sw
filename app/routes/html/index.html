@@ -32,7 +32,7 @@
       </div>
       <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
       <ul id="options" class="d-flex flex-column" >
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 presion">
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 presion">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
             <div>
               <h4 class="mt-4">Ppulm</h4>
@@ -90,12 +90,13 @@
       
     </div>
     <div class="d-flex flex-row configutation-container">
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 valvulas">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 valvulas">
         
         <div class="flex-fill d-flex flex-row align-items-stretch h-100 grafica-left">
           <div class="lex-fill d-flex flex-row grafica h-100">
             <div class="valvula-grafica">
-              <div class="grafica-barra o2"  v-bind:style="{height: parameters.FL_O2 * 2 + '%'}"></div>
+              <!-- <div class="grafica-barra o2"  v-bind:style="{height: parameters.FL_O2 * 2 + '%'}"></div> -->
+              <div class="grafica-barra o2"  v-bind:style="{height: parameters.Q_02_10 + '%'}"></div>
             </div>
             <div class="grafica-tick"></div>
           </div>
@@ -107,7 +108,7 @@
         <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
           <h5>Q O<span class="oxigeno">2</span> </h5>
           <h6>( L/min )</h6>
-          <p class="med">{{parameters.FL_O2 || 0}}</p>
+          <p class="med">{{parameters.Q_02_10 || 0}}</p>
           <h5 class="mt-2">VC O<span class="oxigeno">2</span> </h5>
           <h6>( ml )</h6>
           <p class="med">{{parameters.VC_O2 || 0}}</p>
@@ -180,11 +181,11 @@
         </div>
       </div>
       
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  p-2 valvulas">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 valvulas">
         <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 ml-3 small">
           <h5>Q Aire </h5>
           <h6>( L/min )</h6>
-          <p class="med">{{parameters.FL_Aire || 0}}</p>
+          <p class="med">{{parameters.Q_Aire_10 || 0}}</p>
           <h5 class="mt-2">VC Aire </h5>
           <h6>( ml )</h6>
           <p class="med">{{parameters.VC_Aire || 0}}</p>
@@ -192,7 +193,8 @@
         <div class="flex-fill d-flex flex-row-reverse align-items-stretch h-100  grafica-right">
           <div class="lex-fill d-flex flex-row-reverse grafica h-100">
             <div class="valvula-grafica">
-              <div class="grafica-barra aire"  v-bind:style="{height: parameters.FL_Aire * 2 + '%'}"></div>
+              <!-- <div class="grafica-barra aire"  v-bind:style="{height: parameters.FL_Aire * 2 + '%'}"></div> -->
+              <div class="grafica-barra aire"  v-bind:style="{height: parameters.Q_Aire_10 + '%'}"></div>
             </div>
             <div class="grafica-tick"></div>
           </div>

@@ -51,14 +51,16 @@ chart_f.addTimeSeries(FL_Mezcla,
 chart_v.addTimeSeries(VC_Mezcla,
   { strokeStyle: COLOR_V, lineWidth: 2 });
 
-chart_p.streamTo(document.getElementById("firstCanvas"));
-chart_f.streamTo(document.getElementById("secondCanvas"));
-chart_v.streamTo(document.getElementById("thirdCanvas"));
-document.getElementById("firstCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
-document.getElementById("secondCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
-document.getElementById("thirdCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
 
+window.addEventListener('load', () => {
+  console.log(window.innerHeight/5+'px')
+  chart_p.streamTo(document.getElementById("firstCanvas"));
+  chart_f.streamTo(document.getElementById("secondCanvas"));
+  chart_v.streamTo(document.getElementById("thirdCanvas"));
+  document.getElementById("firstCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
+  document.getElementById("secondCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
+  document.getElementById("thirdCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
+  
+})
+console.log(window.innerHeight)
 
-// setInterval( () => {
-
-// }, 100)

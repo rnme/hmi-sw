@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=0.66">
   <title>Ventilator test</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
   <div class="container-fluid"  id="parameters">
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between mt-3">
       <div>
         <h3 class="text-success" v-if="parameters.INICIO == '1'">Encendido</h3>
         <h3 class="text-danger" v-else>Pausado</h3>
@@ -23,12 +23,12 @@
     </div>
     <div class="d-flex flex-row w-100 justify-content-between">
       <div id="canvasContainer">
-        <canvas id="firstCanvas" style="width:100%; height:160px" height="160"></canvas>
+        <canvas id="firstCanvas" style="width:100%; height:155px" height="155"></canvas>
         <br>
-        <canvas id="secondCanvas" style="width:100%; height:160px" height="160">
+        <canvas id="secondCanvas" style="width:100%; height:155px" height="155">
         </canvas>
         <br>
-        <canvas id="thirdCanvas" style="width:100%; height:160px" height="160"></canvas>
+        <canvas id="thirdCanvas" style="width:100%; height:155px" height="155"></canvas>
       </div>
       <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
       <ul id="options" class="d-flex flex-column" >
@@ -49,28 +49,28 @@
             <p class="med">{{parameters.P_AutoPEEP || 0}}</p>
           </div>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center p-3 presion ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 presion ">
           <div>
             <h5 class="mt-0">P Linea Mezcla</54>
             <h6>( cm H<span class="agua">2</span>O )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.P_Linea || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center p-3 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 flujo ">
           <div>
             <h5 class="mt-0">Fi O<span class="oxigeno">2</span> </54>
             <h6>( % )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.FiO2_inst || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center p-3 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 flujo ">
           <div>
             <h5 class="mt-0">Crs</54>
             <h6>( ml/cm H<span class="agua">2</span>O )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.Crs || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center p-3 volumen ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 volumen ">
           <div>
             <h5 class="mt-0">VCmax</54>
             <h6>( ml )</h6>
@@ -90,7 +90,7 @@
       
     </div>
     <div class="d-flex flex-row configutation-container">
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 valvulas">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center px-3 valvulas">
         
         <div class="flex-fill d-flex flex-row align-items-stretch h-100 grafica-left">
           <div class="lex-fill d-flex flex-row grafica h-100">
@@ -115,7 +115,7 @@
         </div>
       </div>
       <div class="d-flex flex-row configuration">
-        <div class="d-fplex flex-column">
+        <div class="d-fplex flex-column conf">
           <h3 class="br">CONFIGURADO</h3>
           <div class="vmc-item d-flex flex-row align-items-stretch setpoints">
             <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
@@ -152,7 +152,7 @@
             </div>
           </div> 
         </div>
-        <div class="d-fplex flex-column">
+        <div class="d-fplex flex-column setpoint">
           <h3 class="bl">SETPOINT</h3>
           <div class="vmc-item d-flex flex-row align-items-stretch setpoints">
             <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
@@ -181,7 +181,7 @@
         </div>
       </div>
       
-      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 valvulas">
+      <div class="vmc-item vmc-item-big d-flex flex-row align-items-center px-3 valvulas">
         <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 ml-3 small">
           <h5>Q Aire </h5>
           <h6>( L/min )</h6>

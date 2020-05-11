@@ -11,7 +11,7 @@ socket.on('chart', (data) => {
   P_Pulmon.append(time, data.P_Pulmon);
   VC_Mezcla.append(time, data.VC_inst);
   FL_Mezcla.append(time, data.FL_Mezcla);
-  
+  chart_p.updateSubtitle(data.P_Pulmon + " (cmH2O)")
   vue_manajer.parameters = {...vue_manajer.parameters, ...data};
 }) 
 

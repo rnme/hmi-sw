@@ -21,6 +21,7 @@ var chart_p = new SmoothieChart({
   millisPerPixel : MILLIS_PER_PIXEL,
   labels: { fillStyle: COLOR_P, fontSize: CHART_FONT_SIZE, fontFamily: "Arial", precision:0 },
   title: {text:'Preisión (cmH2O)', fillStyle: COLOR_P, verticalAlign: 'top', fontSize: CHART_FONT_SIZE, fontFamily: "Arial"},
+  subtitle: {text:'0', fillStyle: COLOR_P, verticalAlign: 'bottom', fontSize: CHART_FONT_SIZE, fontFamily: "Arial"},
   maxValue: 60,
   minValue: 0,
   grid:{strokeStyle:'transparent'},
@@ -28,6 +29,7 @@ var chart_p = new SmoothieChart({
 var chart_f = new SmoothieChart({
   millisPerPixel : MILLIS_PER_PIXEL,
   labels: { fillStyle: COLOR_F, fontSize: CHART_FONT_SIZE, fontFamily: "Arial", precision:0 },
+  title: {text:'Flujo (L/m)', fillStyle: COLOR_F, verticalAlign: 'top', fontSize: CHART_FONT_SIZE, fontFamily: "Arial"},
   title: {text:'Flujo (L/m)', fillStyle: COLOR_F, verticalAlign: 'top', fontSize: CHART_FONT_SIZE, fontFamily: "Arial"},
   maxValue: 80,
   minValue: 0,

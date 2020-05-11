@@ -102,14 +102,14 @@ ul#options {
   font-size: 70px;
   text-align: right;
   line-height: 75px;
-  margin-top: 20px;
+  margin-top: 10px;
   align-self: center;
 }
 .vmc-item .med {
   font-size: 40px;
   text-align: right;
   line-height: 45px;
-  margin-top: 5px;
+  margin-top: 0;
   align-self: center;
 }
 .vmc-item .small p{

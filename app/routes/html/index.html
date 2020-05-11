@@ -24,6 +24,7 @@
     <div class="d-flex flex-row w-100 justify-content-between">
       <div id="canvasContainer">
         <canvas id="firstCanvas" style="width:100%;" height="250"></canvas>
+        <!-- <span class="presion">{{parameters.P_pulmon_max || 0}}</span> -->
         <br>
         <canvas id="secondCanvas" style="width:100%;" height="250">
         </canvas>
@@ -32,7 +33,7 @@
       </div>
       <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
       <ul id="options" class="d-flex flex-column" >
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-1 presion">
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-0 presion">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
             <div>
               <h4 class="mt-4">Ppulm Max</h4>
@@ -49,21 +50,21 @@
             <p class="med">{{parameters.P_AutoPEEP || 0}}</p>
           </div>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 presion-linea ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-0 presion-linea ">
           <div>
             <h5 class="mt-0">P Linea Mezcla</h5>
             <h6>( cm H<span class="agua">2</span>O )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.P_Linea || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-0 flujo ">
           <div>
             <h5 class="mt-0">Fi O<span class="oxigeno">2</span> </h5>
             <h6>( % )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.FiO2_inst || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-0 flujo ">
           <div>
             <h5 class="mt-0">Crs</h5>
             <h6>( ml/cm H<span class="agua">2</span>O )</h6>
@@ -71,7 +72,7 @@
           <p class="flex-fill med mt-0">{{parameters.Crs || 0}}</p>
         </li>
         
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-1 volumen">
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-0 volumen">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
             <div>
               <h4 class="mt-4">VCmax</h4>

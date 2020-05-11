@@ -408,6 +408,13 @@
       fontFamily: 'monospace',
       verticalAlign: 'middle'
     },
+    subtitle: {
+      text: '',
+      fillStyle: '#ffffff',
+      fontSize: 15,
+      fontFamily: 'monospace',
+      verticalAlign: 'middle'
+    },
     horizontalLines: [],
     tooltip: false,
     tooltipLine: {
@@ -556,6 +563,14 @@
     }
     return this.tooltipEl;
   };
+
+
+  SmoothieChart.prototype.updateSubtitle = function(subtitle_text) {
+
+    this.options.subtitle.text = subtitle_text.toString();
+    // this.subtitle.text = subtitle_text.toString()
+
+  }
 
   SmoothieChart.prototype.updateTooltip = function () {
     if(!this.options.tooltip){
@@ -1083,20 +1098,38 @@
       var titleXPos = chartOptions.scrollBackwards ? dimensions.width - context.measureText(chartOptions.title.text).width - 2 : 2;
       if (chartOptions.title.verticalAlign == 'bottom') {
         context.textBaseline = 'bottom';
-        var titleYPos = dimensions.height;
+        var titleYPos = dimensions.height -2;
       } else if (chartOptions.title.verticalAlign == 'middle') {
         context.textBaseline = 'middle';
         var titleYPos = dimensions.height / 2;
       } else {
         context.textBaseline = 'top';
-        var titleYPos = 0;
+        var titleYPos = 2;
       }
       context.fillStyle = chartOptions.title.fillStyle;
       context.fillText(chartOptions.title.text, titleXPos, titleYPos);
     }
+    // Display subtitle.
+    if (chartOptions.subtitle.text !== '') {
+      context.font = chartOptions.subtitle.fontSize + 'px ' + chartOptions.subtitle.fontFamily;
+      var subtitleXPos = chartOptions.scrollBackwards ? dimensions.width - context.measureText(chartOptions.subtitle.text).width - 2 : 2;
+      if (chartOptions.subtitle.verticalAlign == 'bottom') {
+        context.textBaseline = 'bottom';
+        var subtitleYPos = dimensions.height - 2;
+      } else if (chartOptions.subtitle.verticalAlign == 'middle') {
+        context.textBaseline = 'middle';
+        var subtitleYPos = dimensions.height / 2;
+      } else {
+        context.textBaseline = 'top';
+        var subtitleYPos = 2;
+      }
+      context.fillStyle = chartOptions.subtitle.fillStyle;
+      context.fillText(chartOptions.subtitle.text, subtitleXPos, subtitleYPos);
+    }
 
     context.restore(); // See .save() above.
   };
+
 
   // Sample timestamp formatting function
   SmoothieChart.timeFormatter = function(date) {

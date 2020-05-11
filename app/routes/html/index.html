@@ -32,7 +32,7 @@
       </div>
       <!-- <ul id="options" class="d-flex flex-column" v-if='!!Object.keys(parameters).length'> -->
       <ul id="options" class="d-flex flex-column" >
-        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 pv-0 presion">
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-1 presion">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
             <div>
               <h4 class="mt-4">Ppulm Max</h4>
@@ -49,33 +49,44 @@
             <p class="med">{{parameters.P_AutoPEEP || 0}}</p>
           </div>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 presion ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 presion-linea ">
           <div>
-            <h5 class="mt-0">P Linea Mezcla</54>
+            <h5 class="mt-0">P Linea Mezcla</h5>
             <h6>( cm H<span class="agua">2</span>O )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.P_Linea || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 flujo ">
           <div>
-            <h5 class="mt-0">Fi O<span class="oxigeno">2</span> </54>
+            <h5 class="mt-0">Fi O<span class="oxigeno">2</span> </h5>
             <h6>( % )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.FiO2_inst || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 flujo ">
+        <li class="vmc-item d-flex flex-row align-items-center px-3 py-1 flujo ">
           <div>
-            <h5 class="mt-0">Crs</54>
+            <h5 class="mt-0">Crs</h5>
             <h6>( ml/cm H<span class="agua">2</span>O )</h6>
           </div>
           <p class="flex-fill med mt-0">{{parameters.Crs || 0}}</p>
         </li>
-        <li class="vmc-item d-flex flex-row align-items-center px-3 py-3 volumen ">
-          <div>
-            <h5 class="mt-0">VCmax</54>
-            <h6>( ml )</h6>
+        
+        <li class="vmc-item vmc-item-big d-flex flex-row align-items-center  ph-3 py-1 volumen">
+          <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 small">
+            <div>
+              <h4 class="mt-4">VCmax</h4>
+                <h6>( ml )</h6>
+              </div>
+            <div class="big"><span>{{parameters.VC_max || 0}}</span></div>
           </div>
-          <p class="flex-fill med mt-0">{{parameters.VC_max || 0}}</p>
+          <div class="flex-fill d-flex flex-column align-items-start align-self-start mt-1 small">
+            <h5 class="mt-2">VC O<span class="oxigeno">2</span> </h5>
+            <h6>( ml )</h6>
+            <p class="med">{{parameters.VC_O2 || 0}}</p>
+            <h5 class="mt-2">VC Aire </h5>
+            <h6>( ml )</h6>
+            <p class="med">{{parameters.VC_Aire || 0}}</p>
+            </div>
         </li>
         <!-- <li class="vmc-item vmc-item-big d-flex flex-row align-items-center volumen">
           <div class="flex-fill d-flex flex-column align-items-start align-self-start h-100 mt-1 p-3 small">
@@ -129,7 +140,7 @@
             </div>
             <div class="flex-fill d-flex flex-column align-items-start align-self-start pl-2 pr-2 small">
               <h4>Pausa Insp </h4>
-              <h6>( ms )</h6>
+              <h6>( % )</h6>
               <div class="flex-fill pr-2 med"><span>{{parameters.PAUSA_INSP || 0}}</span></div>
             </div>
           <!-- </div>

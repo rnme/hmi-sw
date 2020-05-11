@@ -57,9 +57,9 @@ window.addEventListener('load', () => {
   const secondCanvas = document.getElementById("secondCanvas");
   const thirdCanvas = document.getElementById("thirdCanvas");
   let windowHeight = window.innerHeight;
-  const canvasContainerWidth = (windowHeight < 500) ? document.getElementById("canvasContainer").offsetWidth * 2 : document.getElementById("canvasContainer").offsetWidth;
+  const canvasContainerWidth = document.getElementById("canvasContainer").offsetWidth;
   
-  windowHeight = (windowHeight < 500) ? windowHeight * 1 : windowHeight;
+  windowHeight = (windowHeight < 500) ? windowHeight * 1.4 : windowHeight;
   
   chart_p.streamTo(firstCanvas);
   chart_f.streamTo(secondCanvas);

@@ -2,6 +2,7 @@ const express = require('express')
 const socket = require('socket.io')
 var http = require('follow-redirects').http;
 var fs = require('fs');
+const fetch = require('node-fetch');
 // const cors = require('cors')
 const bodyParser = require('body-parser')
 const validator = require('express-validator')
@@ -174,41 +175,22 @@ io.on('connection', (socket) => {
 
 
 const sendReport = (NRO_PACIENTE, body) => {
-  
 
-  var options = {
-    'method': 'POST',
-    'hostname': 'ec2-54-157-41-149.compute-1.amazonaws.com',
-    'port': 5000,
-    'path': `/ventilators/${NRO_PACIENTE || 1}/measurements`,
-    'headers': {
-      'Content-Type': 'application/json'
-    },
-    'maxRedirects': 20
+  var raw = JSON.stringify(body);
+
+  var requestOptions = {
+    method: 'POST',
+    headers: {"Content-Type": "application/json"},
+    body: raw,
+    redirect: 'follow'
   };
 
-  var req = http.request(options, function (res) {
-    var chunks = [];
+  fetch(`http://ec2-54-157-41-149.compute-1.amazonaws.com:5000/ventilators/${NRO_PACIENTE}/measurements`, requestOptions)
+    .then(response => response.text())
+    // .then(result => console.log(result))
+    .catch(error => console.log('error: No estamos reportando'));
+  
 
-    res.on("data", function (chunk) {
-      chunks.push(chunk);
-    });
-
-    res.on("end", function (chunk) {
-      var body = Buffer.concat(chunks);
-      console.log(body.toString());
-    });
-
-    res.on("error", function (error) {
-      console.error(error);
-    });
-  });
-
-  var postData = JSON.stringify(body);
-
-  req.write(postData);
-
-  req.end();
 }
 
 server.listen(port, () => {

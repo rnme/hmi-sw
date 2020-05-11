@@ -2,7 +2,8 @@
 var ModbusRTU = require("modbus-serial");
 
 var client = new ModbusRTU();
-const PLC_IP_ADDRESS = "172.16.0.1"; 
+// const PLC_IP_ADDRESS = "172.16.0.1"; 
+const PLC_IP_ADDRESS = "192.168.1.203"; 
 
 exports.init = () => {
   if ( !client._port || !client._port.openFlag) {

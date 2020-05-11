@@ -1,5 +1,7 @@
 const express = require('express')
 const socket = require('socket.io')
+var http = require('follow-redirects').http;
+var fs = require('fs');
 // const cors = require('cors')
 const bodyParser = require('body-parser')
 const validator = require('express-validator')
@@ -10,8 +12,20 @@ const io = socket(server)
 const utils = require('./utils');
 const mb = require('./components/modbus')
 
-const port = process.env.PORT || 3000
-const route = require('./app/routes')
+const port = process.env.PORT || 3000;
+const route = require('./app/routes');
+
+const reportToDashboard = {
+  "status": 0,//<integer; 0->OK, 1->ADVERTENCIA, 2->ALARMA>,
+  "fr": 2,
+  "ie": 3,
+  "pause": 10,
+  "vc": 20,
+  "fio2": 120,
+  "peep": 10
+}
+
+
 
 // app.use(cors())
 app.use(express.static('public'));
@@ -22,13 +36,46 @@ app.use((req,res,next) => {
 app.use(bodyParser.json())
 app.use(validator())
 app.use(route)
+mb.init();
+
+setInterval(function() {
+  mb.getHR(50, 69, (data) => { 
+    if (data) {
+      const numbers = data.data.map((toReturn => ((toReturn > 32767) ? toReturn - 65536 : toReturn)));
+      const NRO_PACIENTE = numbers[14];
+      const FR = numbers[1];
+      const IE = numbers[2];
+      const VC_sp = numbers[3];
+      const PAUSA_INSP = numbers[4];
+      const FiO2_sp = numbers[5];
+      const P_PEEP = numbers[11];
+      const [VALV_INSP, VALV_ESP, VALV_SEG, ALARMA_BOCINA] = utils.getBinaryFromBuffer(data.buffer, 51);
+
+      const historica = utils.getBinaryFromBuffer(data.buffer, 49).indexOf('1') > 0;
+      const falla = utils.getBinaryFromBuffer(data.buffer, 50).indexOf('1') > 0;;
+        
+
+      reportToDashboard.status = falla ? 2 : historica ? 1 : 0;
+      reportToDashboard.fr     = FR;
+      reportToDashboard.ie     = IE;
+      reportToDashboard.vc     = VC_sp;
+      reportToDashboard.pause  = PAUSA_INSP;
+      reportToDashboard.fio2   = FiO2_sp;
+      reportToDashboard.peep   = P_PEEP;
+      
+      sendReport(NRO_PACIENTE, reportToDashboard);
+    }
+  })
+
+
+  
+}, 5000);
+
 
 io.on('connection', (socket) => {
   console.log('a user connected');
 
   mb.init();
-
-  
 
   setInterval(function() {
     mb.getHR(101, 18, (data) => { 
@@ -126,7 +173,43 @@ io.on('connection', (socket) => {
 
 
 
+const sendReport = (NRO_PACIENTE, body) => {
+  
 
+  var options = {
+    'method': 'POST',
+    'hostname': 'ec2-54-157-41-149.compute-1.amazonaws.com',
+    'port': 5000,
+    'path': `/ventilators/${NRO_PACIENTE || 1}/measurements`,
+    'headers': {
+      'Content-Type': 'application/json'
+    },
+    'maxRedirects': 20
+  };
+
+  var req = http.request(options, function (res) {
+    var chunks = [];
+
+    res.on("data", function (chunk) {
+      chunks.push(chunk);
+    });
+
+    res.on("end", function (chunk) {
+      var body = Buffer.concat(chunks);
+      console.log(body.toString());
+    });
+
+    res.on("error", function (error) {
+      console.error(error);
+    });
+  });
+
+  var postData = JSON.stringify(body);
+
+  req.write(postData);
+
+  req.end();
+}
 
 server.listen(port, () => {
   console.log('Listening on '+port)

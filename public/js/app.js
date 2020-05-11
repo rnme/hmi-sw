@@ -21,7 +21,7 @@ var chart_p = new SmoothieChart({
   millisPerPixel : MILLIS_PER_PIXEL,
   labels: { fillStyle: COLOR_P, fontSize: CHART_FONT_SIZE, fontFamily: "Arial", precision:0 },
   title: {text:'Preisión (cmH2O)', fillStyle: COLOR_P, verticalAlign: 'top', fontSize: CHART_FONT_SIZE, fontFamily: "Arial"},
-  maxValue: 100,
+  maxValue: 60,
   minValue: 0,
   grid:{strokeStyle:'transparent'},
 });
@@ -53,14 +53,23 @@ chart_v.addTimeSeries(VC_Mezcla,
 
 
 window.addEventListener('load', () => {
-  console.log(window.innerHeight/5+'px')
-  chart_p.streamTo(document.getElementById("firstCanvas"));
-  chart_f.streamTo(document.getElementById("secondCanvas"));
-  chart_v.streamTo(document.getElementById("thirdCanvas"));
-  document.getElementById("firstCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
-  document.getElementById("secondCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
-  document.getElementById("thirdCanvas").setAttribute('width', document.getElementById("canvasContainer").offsetWidth+'px')
+  const firstCanvas = document.getElementById("firstCanvas");
+  const secondCanvas = document.getElementById("secondCanvas");
+  const thirdCanvas = document.getElementById("thirdCanvas");
+  let windowHeight = window.innerHeight;
+  const canvasContainerWidth = (windowHeight < 500) ? document.getElementById("canvasContainer").offsetWidth * 2 : document.getElementById("canvasContainer").offsetWidth;
   
+  windowHeight = (windowHeight < 500) ? windowHeight * 1 : windowHeight;
+  
+  chart_p.streamTo(firstCanvas);
+  chart_f.streamTo(secondCanvas);
+  chart_v.streamTo(thirdCanvas);
+  firstCanvas.setAttribute('width', canvasContainerWidth+'px')
+  secondCanvas.setAttribute('width', canvasContainerWidth+'px')
+  thirdCanvas.setAttribute('width', canvasContainerWidth+'px')
+  firstCanvas.setAttribute('height', windowHeight/4+'px')
+  secondCanvas.setAttribute('height', windowHeight/4+'px')
+  thirdCanvas.setAttribute('height', windowHeight/4+'px')
 })
-console.log(window.innerHeight)
+
 

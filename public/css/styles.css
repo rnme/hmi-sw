@@ -9,11 +9,19 @@ body {
     zoom: 0.85;
     -moz-transform: scale(0.85);
   }
+  canvas {
+    zoom:1.4;
+    -moz-transform: scale(1.4);
+  }
 }
 @media (max-height: 500px) {
   body {
     zoom: 0.62;
     -moz-transform: scale(0.62);
+  }
+  canvas {
+    zoom:1.4;
+    -moz-transform: scale(1.4);
   }
 }
 
@@ -152,7 +160,7 @@ ul#options {
 }
 .configuration .small{
   border: 1px solid #888;
-  width: 33%;
+  width: flex1;
   height: 100%;
 }
 

@@ -23,7 +23,10 @@ const reportToDashboard = {
   "pause": 10,
   "vc": 20,
   "fio2": 120,
-  "peep": 10
+  "peep": 10,
+  "pPulmMax": 0,
+  "pPlate": 0,
+  "crs": 0
 }
 
 
@@ -51,18 +54,25 @@ setInterval(function() {
       const FiO2_sp = numbers[5];
       const P_PEEP = numbers[11];
       const [VALV_INSP, VALV_ESP, VALV_SEG, ALARMA_BOCINA] = utils.getBinaryFromBuffer(data.buffer, 51);
+      const P_pulmon_max = numbers[61];
+      const P_pulmon_pl = numbers[62];
+      const Crs = numbers[68];          // 118 
+
 
       const historica = utils.getBinaryFromBuffer(data.buffer, 49).indexOf('1') > 0;
       const falla = utils.getBinaryFromBuffer(data.buffer, 50).indexOf('1') > 0;;
         
 
-      reportToDashboard.status = falla ? 2 : historica ? 1 : 0;
-      reportToDashboard.fr     = FR;
-      reportToDashboard.ie     = IE;
-      reportToDashboard.vc     = VC_sp;
-      reportToDashboard.pause  = PAUSA_INSP;
-      reportToDashboard.fio2   = FiO2_sp;
-      reportToDashboard.peep   = P_PEEP;
+      reportToDashboard.status   = falla ? 2 : historica ? 1 : 0;
+      reportToDashboard.fr       = FR;
+      reportToDashboard.ie       = IE;
+      reportToDashboard.vc       = VC_sp;
+      reportToDashboard.pause    = PAUSA_INSP;
+      reportToDashboard.fio2     = FiO2_sp;
+      reportToDashboard.peep     = P_PEEP;
+      reportToDashboard.pPulmMax = P_pulmon_max;
+      reportToDashboard.pPlate   = P_pulmon_pl;
+      reportToDashboard.crs      = Crs;
       
       sendReport(NRO_PACIENTE, reportToDashboard);
     }

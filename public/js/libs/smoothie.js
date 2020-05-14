@@ -413,7 +413,8 @@
       fillStyle: '#ffffff',
       fontSize: 15,
       fontFamily: 'monospace',
-      verticalAlign: 'middle'
+      verticalAlign: 'middle',
+      horizontalAlign: 'left'
     },
     horizontalLines: [],
     tooltip: false,
@@ -568,7 +569,6 @@
   SmoothieChart.prototype.updateSubtitle = function(subtitle_text) {
 
     this.options.subtitle.text = subtitle_text.toString();
-    // this.subtitle.text = subtitle_text.toString()
 
   }
 
@@ -1113,7 +1113,11 @@
     if (chartOptions.subtitle.text !== '') {
       context.font = chartOptions.subtitle.fontSize + 'px ' + chartOptions.subtitle.fontFamily;
       var subtitleXPos = chartOptions.scrollBackwards ? dimensions.width - context.measureText(chartOptions.subtitle.text).width - 2 : 2;
-      if (chartOptions.subtitle.verticalAlign == 'bottom') {
+      if (chartOptions.subtitle.horizontalAlign == 'center') {
+        subtitleXPos = dimensions.width  / 2 - context.measureText(chartOptions.subtitle.text).width;
+      }
+      
+      if (chartOptions.subtitle.horizontalAlign == 'bottom') {
         context.textBaseline = 'bottom';
         var subtitleYPos = dimensions.height - 2;
       } else if (chartOptions.subtitle.verticalAlign == 'middle') {

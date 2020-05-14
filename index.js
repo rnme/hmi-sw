@@ -49,9 +49,9 @@ setInterval(function() {
       const NRO_PACIENTE = numbers[14];
       const FR = numbers[1];
       const IE = numbers[2];
-      const VC_sp = numbers[3];
+      const VC_max = numbers[65];
       const PAUSA_INSP = numbers[4];
-      const FiO2_sp = numbers[5];
+      const FiO2_inst = numbers[67];
       const P_PEEP = numbers[11];
       const [VALV_INSP, VALV_ESP, VALV_SEG, ALARMA_BOCINA] = utils.getBinaryFromBuffer(data.buffer, 51);
       const P_pulmon_max = numbers[61];
@@ -66,9 +66,9 @@ setInterval(function() {
       reportToDashboard.status   = falla ? 2 : historica ? 1 : 0;
       reportToDashboard.fr       = FR;
       reportToDashboard.ie       = IE;
-      reportToDashboard.vc       = VC_sp;
+      reportToDashboard.vc       = VC_max;
       reportToDashboard.pause    = PAUSA_INSP;
-      reportToDashboard.fio2     = FiO2_sp;
+      reportToDashboard.fio2     = FiO2_inst;
       reportToDashboard.peep     = P_PEEP;
       reportToDashboard.pPulmMax = P_pulmon_max;
       reportToDashboard.pPlate   = P_pulmon_pl;
